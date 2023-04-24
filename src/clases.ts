@@ -73,24 +73,24 @@ let raw = JSON.stringify({
 let requestOptions = {
     method: 'POST',
     headers: myHeaders,
-    body: raw,
+    body: raw
   };
 
 
 
 
-        fetch("https://apiestudiantes.maosystems.dev/estudiantes", requestOptions)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            /*if (data === true) {
-                alert("Estudiante creado correctamente");
-            
-            } else {
-                alert("Error al crear el estudiante");
-            }*/
-        })
-            
+  fetch("https://apiestudiantes.maosystems.dev/estudiantes", requestOptions)
+  .then(response => response.json())
+  .then(result => {
+    if(result===true){
+        alert("Estudiante creado exitosamente");
+    }else{
+        alert("El estudiante ya se encuentra registrado");
+    }
+    console.log(result);
+  })
+  .catch(error => console.log('error', error));
+        
         /*.then(result => console.log(result))
         .catch(error => console.log('error', error));
         */
@@ -107,6 +107,43 @@ let requestOptions = {
     });
     }
 
+buscarEstudiante(){
+    const btnBuscar = document.getElementById('btn-buscar') as HTMLButtonElement; // Tratar como un elemento html
+
+    btnBuscar.addEventListener('click', (e) => {
+    e.preventDefault(); // Evitar que se recargue la pagina
+
+    //Validacion formulario
+    //obtener datos de los inputs
+
+    const numeroDocumento = document.getElementById('numeroDocumento') as HTMLInputElement;
+    const numero = numeroDocumento.value;
+
+    
+            let myHeaders = new Headers(); // clase para
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWNhY2lvbiI6MTAyMjM0ODc3NCwiY29ycmVvIjoiZXNhbmNoZXoxOTg4QGdtYWlsLmNvbSIsImlhdCI6MTY4MTYwODM4MCwiZXhwIjoxNjgyMjEzMTgwfQ.q5KH3EX0r_x9nBfPw_Sdlo5Qve9SKNqBq52XFxxsXnQ");
+
+            /*let raw = JSON.stringify({
+            "numeroIdentificacion": Number(numeroDocumento.value),
+            });*/
 
 
+            let requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            };    
+        
+    
+        
+
+            fetch(`https://apiestudiantes.maosystems.dev/estudiantes/${numero}`, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => console.log('error', error));
+        
+    });
+    }
 }
