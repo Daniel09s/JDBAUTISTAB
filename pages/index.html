@@ -15,6 +15,9 @@
                 <h1>Registro de estudiante</h1>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Registrar usuario</button>
             </div>
+            div class="col">
+                <h1>Buscar estudiante</h1>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscarModal">Buscar</button>
         </div>
     </div>
 
@@ -83,6 +86,42 @@
     </div>
   </div>
 
+
+  <div class="modal fade" id="buscarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Buscar estudiante</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body" id="resultado">
+          <form id="form">
+            <div class="mb-3">
+                <label for="tipoDocumento" class="form-label">Tipo documento</label>
+                <select name="tipoDocumento" id="tipoDocumento" class="form-select">
+                    <option value="1">Cedula</option>
+                    <option value="2">Tarjeta identidad</option>
+                    <option value="3">Pasaporte</option>
+                </select>
+                
+              </div>
+            <div class="mb-3">
+              <label for="numeroDocumento" class="form-label">Id</label>
+              <input type="number" class="form-control" id="id" name="id" placeholder="Ingrese el numero de id..."></input>   
+            </div>
+              
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cerrar</button>
+          <button type="button" class="btn btn-primary" id="btn-buscar">buscar</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../dist/index.js" type="module"></script>
