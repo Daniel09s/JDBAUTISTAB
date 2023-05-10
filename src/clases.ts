@@ -52,57 +52,55 @@ agregarEstudiante(){
         alert("Todos los datos son obligatorios")
     }else{
         
-    
+    let myHeaders = new Headers(); // clase para
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWNhY2lvbiI6MTAyMjM0ODc3NCwiY29ycmVvIjoiZXNhbmNoZXoxOTg4QGdtYWlsLmNvbSIsImlhdCI6MTY4MTYwODM4MCwiZXhwIjoxNjgyMjEzMTgwfQ.q5KH3EX0r_x9nBfPw_Sdlo5Qve9SKNqBq52XFxxsXnQ");
 
-let myHeaders = new Headers(); // clase para
-myHeaders.append("Content-Type", "application/json");
-myHeaders.append("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWNhY2lvbiI6MTAyMjM0ODc3NCwiY29ycmVvIjoiZXNhbmNoZXoxOTg4QGdtYWlsLmNvbSIsImlhdCI6MTY4MTYwODM4MCwiZXhwIjoxNjgyMjEzMTgwfQ.q5KH3EX0r_x9nBfPw_Sdlo5Qve9SKNqBq52XFxxsXnQ");
-
-let raw = JSON.stringify({
-    "tipoIdentificacion": Number(tipoDocumento.value),
-    "numeroIdentificacion": Number(numeroDocumento.value),
-    "nombres": nombre.value,
-    "apellidos": apellido.value,
-    "celular": Number(numeroCelular.value),
-    "correo": email.value,
-    "linkedin": usuarioLink.value,
-    "github": usuarioGit.value
-});
+    let raw = JSON.stringify({
+        "tipoIdentificacion": Number(tipoDocumento.value),
+        "numeroIdentificacion": Number(numeroDocumento.value),
+        "nombres": nombre.value,
+        "apellidos": apellido.value,
+        "celular": Number(numeroCelular.value),
+        "correo": email.value,
+        "linkedin": usuarioLink.value,
+        "github": usuarioGit.value
+    });
 
 
-let requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw
-  };
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw
+    };
 
 
 
 
-  fetch("https://apiestudiantes.maosystems.dev/estudiantes", requestOptions)
-  .then(response => response.json())
-  .then(result => {
-    if(result===true){
-        alert("Estudiante creado exitosamente");
-    }else{
-        alert("El estudiante ya se encuentra registrado");
-    }
-    console.log(result);
-  })
-  .catch(error => console.log('error', error));
-        
-        /*.then(result => console.log(result))
-        .catch(error => console.log('error', error));
-        */
-
-    /*fetch("https://apiestudiantes.maosystems.dev/estudiantes", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
+    fetch("https://apiestudiantes.maosystems.dev/estudiantes", requestOptions)
+    .then(response => response.json())
+    .then(result => {
+        if(result===true){
+            alert("Estudiante creado exitosamente");
+        }else{
+            alert("El estudiante ya se encuentra registrado");
+        }
+        console.log(result);
+    })
     .catch(error => console.log('error', error));
-*/
-    
+            
+            /*.then(result => console.log(result))
+            .catch(error => console.log('error', error));
+            */
 
-    }
+        /*fetch("https://apiestudiantes.maosystems.dev/estudiantes", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    */
+        
+
+        }
 
     });
     }
@@ -112,7 +110,7 @@ buscarEstudiante(){
     const resultado = document.getElementById('resultado') as HTMLDivElement;
     
     const tipoD = document.getElementById('tipoDocumento') as HTMLInputElement;
-    const numeroDocumento = document.getElementById('id') as HTMLInputElement;
+    const numeroDocumento = document.getElementById('idBuscar') as HTMLInputElement;
 
     btnBuscar.addEventListener('click', (e) => {
     e.preventDefault(); // Evitar que se recargue la pagina
@@ -222,4 +220,42 @@ buscarEstudiante(){
         
     });
     }
+
+actualizarEstudiante(){
+
+    const btnActualizar = document.getElementById('btn-actualizar') as HTMLButtonElement; // Tratar como un elemento html
+    const id = document.getElementById('idActualizar') as HTMLInputElement;
+    const newId = document.getElementById('idNew') as HTMLInputElement;
+    const nombre = document.getElementById('nombreActualizar') as HTMLInputElement;
+
+
+    btnActualizar.addEventListener('click', (e) => {
+    e.preventDefault(); // Evitar que se recargue la pagina
+    
+    let myHeaders = new Headers(); // clase para
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWNhY2lvbiI6MTAyMjM0ODc3NCwiY29ycmVvIjoiZXNhbmNoZXoxOTg4QGdtYWlsLmNvbSIsImlhdCI6MTY4MTYwODM4MCwiZXhwIjoxNjgyMjEzMTgwfQ.q5KH3EX0r_x9nBfPw_Sdlo5Qve9SKNqBq52XFxxsXnQ");
+
+    let raw = JSON.stringify({
+    "nombres" : nombre.value,
+    });
+
+    let requestOptions = {
+    method: 'PUT',
+    headers: myHeaders,
+    body: raw,
+    };
+
+    fetch(`https://apiestudiantes.maosystems.dev/estudiantes/${id.value}`, requestOptions)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => console.log('error', error));
+    });
+
+
+
+      }
+    
 }

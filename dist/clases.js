@@ -171,4 +171,30 @@ export class formulario {
                 .catch(error => console.log('error', error));
         });
     }
+    actualizarEstudiante() {
+        const btnActualizar = document.getElementById('btn-actualizar'); // Tratar como un elemento html
+        const id = document.getElementById('idActualizar');
+        const newId = document.getElementById('idNew');
+        const nombre = document.getElementById('nombreActualizar');
+        btnActualizar.addEventListener('click', (e) => {
+            e.preventDefault(); // Evitar que se recargue la pagina
+            let myHeaders = new Headers(); // clase para
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWNhY2lvbiI6MTAyMjM0ODc3NCwiY29ycmVvIjoiZXNhbmNoZXoxOTg4QGdtYWlsLmNvbSIsImlhdCI6MTY4MTYwODM4MCwiZXhwIjoxNjgyMjEzMTgwfQ.q5KH3EX0r_x9nBfPw_Sdlo5Qve9SKNqBq52XFxxsXnQ");
+            let raw = JSON.stringify({
+                "nombres": nombre.value,
+            });
+            let requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+            };
+            fetch(`https://apiestudiantes.maosystems.dev/estudiantes/${id.value}`, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                console.log(data);
+            })
+                .catch(error => console.log('error', error));
+        });
+    }
 }
